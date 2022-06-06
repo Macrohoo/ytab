@@ -27,11 +27,9 @@ export default defineComponent({
     height: 100%;
     margin-left: $sideBarWidth;
     position: relative;
-    background-color: $greyColor;
   }
   .sidebar-container {
     width: $sideBarWidth !important;
-    background: $greyColor;
     height: 100%;
     position: fixed;
     font-size: 0;

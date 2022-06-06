@@ -122,8 +122,20 @@
   line-height: 20px;
 }
 
+.text-white {
+  color: #c6d3dd;
+  font-size: 14px;
+  line-height: 20px;
+}
+
 .text-black-sm {
   color: #262626;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.text-white-sm {
+  color: #c6d3dd;
   font-size: 12px;
   line-height: 18px;
 }

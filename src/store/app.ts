@@ -3,16 +3,12 @@ import { constantRoutes } from '@/router'
 import { RouterTy } from '~/router'
 
 
-function filterRoutes(routes: RouterTy) {
-  return routes.filter(v => v.path !== '/')
-}
-
 export const useAppStore = defineStore('app', {
   state: () => {
     return {
       sidebar: { opened: true },
       cachedViews: [] as Array<string>,
-      routes: filterRoutes(constantRoutes), //目前这里只有静态路由集合
+      routes: constantRoutes, //目前这里只有静态路由集合
     }
   },
   actions: {

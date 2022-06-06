@@ -1,63 +1,27 @@
 <template>
-  <div id="sidebar">
-    <a-menu
-      class="menu-vertical"
-      v-model:openKeys="openKeys"
-      v-model:selectedKeys="selectedKeys"
-      mode="inline"
-      @click="handleClick"
-      style="width: 260px"
-    >
-      <Link :to="'/'">
-        <a-menu-item>
-          <template #icon>
-            <SvgIcon
-              :name="'tsbrowser'"
-              style="width: 22px; height: 22px"
-            ></SvgIcon>
-          </template>
-          关于想天浏览器
-        </a-menu-item>
-      </Link>
-      <a-sub-menu
-        v-for="route in routes"
-        :key="route.path"
-        @titleClick="titleClick"
-      >
-        <template #icon>
-          <AntdIcon
-            :name="route.meta?.icon"
-            :style="'font-size: 20px'"
-          ></AntdIcon>
-        </template>
-        <template #title>{{ route.meta?.title }}</template>
-        <a-menu-item
-          v-for="route2 in route.children"
-          :key="route2.path"
-          class="child-menu-item"
-        >
-          <Link :to="resolvePath(route.path, route2.path)">
-            <SvgIcon
-              :name="route2.meta?.icon"
-              style="
-                position: absolute;
-                left: 24px;
-                top: 10px;
-                width: 20px;
-                height: 20px;
-              "
-            ></SvgIcon>
-            {{ route2.meta?.title }}
-          </Link>
-        </a-menu-item>
-      </a-sub-menu>
-    </a-menu>
+  <div id="sidebar" class="sd flex flex-direction justify-center align-center">
+    <div class="sd-top"></div>
+    <div class="sd-mid flex flex-direction justify-around align-center">
+        <Link :to="resolvePath(routes[0].path, item.path)" v-for="item in routes[0].children" :key="item.path">
+          <div
+            class="sd-mid-div flex flex-direction justify-around align-center"
+            :class="{active: selectedRouteName === item.name}"
+            @click.stop="chooseBlock(item.name)"
+          >
+            <AntdIcon
+              :name="item.meta?.icon"
+              :style="atdIconSelected(item.name)"
+            ></AntdIcon>
+            <span class="text-white-sm sg-omit-sm" :class="{active: selectedRouteName === item.name}">{{ item.meta?.title }}</span>
+          </div>
+        </Link>
+    </div>
+    <div class="sd-bottom"></div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref, watch } from "vue";
-import type { MenuProps } from "ant-design-vue";
 import { useAppStore } from "@/store/app";
 import Link from "./Link.vue";
 import path from "path";
@@ -67,9 +31,17 @@ export default defineComponent({
   components: {
     Link,
   },
+  methods: {
+    atdIconSelected(name: string | undefined) {
+      if(this.selectedRouteName === name) {
+        return 'font-size: 20px; color: #40a9ff'
+      } else {
+        return 'font-size: 20px; color: #eeeeee'
+      }
+    }
+  },
   setup() {
     const appStore = useAppStore();
-    //const route = useRoute()
 
     const routes = computed(() => {
       return appStore.routes;
@@ -87,65 +59,60 @@ export default defineComponent({
       return path.resolve(basePath, routePath);
     };
 
-    const openKeys = ref<string[]>(["sub1"]);
-    const selectedKeys = ref<string[]>(["1"]);
-    const handleClick: MenuProps["onClick"] = (e) => {
-      console.log("click", e);
-    };
-    const titleClick = (e: Event) => {
-      console.log("titleClick", e);
-    };
-    watch(
-      () => openKeys,
-      (val) => {
-        console.log("openKeys", val);
-      }
-    );
+    let selectedRouteName = ref<string | undefined>('')
+    const chooseBlock = (routeName: string | undefined) => {
+      selectedRouteName.value = routeName
+    }
+
+    // const openKeys = ref<string[]>(["sub1"]);
+    // const selectedKeys = ref<string[]>(["1"]);
+    // const handleClick: MenuProps["onClick"] = (e) => {
+    //   console.log("click", e);
+    // };
+    // const titleClick = (e: Event) => {
+    //   console.log("titleClick", e);
+    // };
+    // watch(
+    //   () => openKeys,
+    //   (val) => {
+    //     console.log("openKeys", val);
+    //   }
+    // );
 
     return {
-      openKeys,
-      selectedKeys,
-      handleClick,
-      titleClick,
       routes,
       resolvePath,
+      chooseBlock,
+      selectedRouteName
     };
   },
 });
 </script>
 
 <style scoped lang="scss">
-.child-menu-item {
-  position: relative;
-}
-//child-menu-item细节位置调整
-:deep .child-menu-item .ant-menu-title-content {
-  padding-left: 6px;
-}
+.sd {
+  width: 100%;
+  height: 100%;
+  background-color: #6eacb374;
+  backdrop-filter: blur(2px);
 
-:deep .ant-menu {
-  background: $greyColor;
-}
-:deep .ant-menu-inline {
-  border-right: 0px;
-}
-
-:deep .ant-menu-submenu-open {
-  background: #ffffff;
-  box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  .ant-menu-sub {
-    background: #ffffff;
-    border-radius: 8px;
+  .sd-mid {
+    width: 100%;
+    height: 60%;
+    .sd-mid-div {
+      width: 50px;
+      height: 50px;
+      &.active{
+        background-color: #c6d3dd;
+        color: #40a9ff;
+      }
+      span {
+        font-weight: 500;
+        &.active{
+          color: #40a9ff;
+        }
+      }
+    }
   }
 }
-:deep .ant-menu-item {
-  &::after {
-    border-right: 0px;
-  }
-}
-:deep .ant-menu-title-content {
-  color: rgba(0, 0, 0, 0.85);
-}
-
 </style>

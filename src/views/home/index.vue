@@ -1,6 +1,6 @@
 <template>
   <div>
-    迁移页面
+    home
   </div>
 </template>
 

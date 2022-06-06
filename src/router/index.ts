@@ -6,52 +6,32 @@ export const constantRoutes: RouterTy = [
   {
     path: '/',
     component: Layout,
-    redirect: '/mvideo',
-    meta: { title: '关于想天浏览器', icon: 'tsbrowser' },
+    redirect: '/home',
     children: [
       {
-        path: 'mvideo',
-        name: 'Mvideo',
-        component: () => import('@/views/mvideo/index.vue'),
-        meta: { title: '关于想天浏览器', icon: 'tsbrowser' },
+        path: 'home',
+        name: 'home',
+        component: () => import('@/views/home/index.vue'),
+        meta: { title: '主页', icon: 'HomeOutlined' },
+      },
+      {
+        path: 'coder',
+        name: 'coder',
+        component: () => import('@/views/coder/index.vue'),
+        meta: { title: '程序员', icon: 'CodeSandboxOutlined' },
+      },
+      {
+        path: 'designer',
+        name: 'designer',
+        component: () => import('@/views/designer/index.vue'),
+        meta: { title: '产品设计', icon: 'LikeOutlined' },
+      },
+      {
+        path: 'rest',
+        name: 'rest',
+        component: () => import('@/views/rest/index.vue'),
+        meta: { title: '摸鱼🐟', icon: 'CoffeeOutlined' },
       }
-    ]
-  },
-  {
-    path: '/noob-guide',
-    component: Layout,
-    meta: { title: '新用户引导', icon: 'SmileTwoTone' },
-    children: [
-      {
-        path: 'account-login',
-        name: 'AccountLogin',
-        component: () => import('@/views/noob-guide/account-login/index.vue'),
-        meta: { title: '账号登录', icon: '1' },
-      },
-      {
-        path: 'career',
-        name: 'Career',
-        component: () => import('@/views/noob-guide/career/index.vue'),
-        meta: { title: '职业选择', icon: '2' },
-      },
-      {
-        path: 'migration',
-        name: 'Migration',
-        component: () => import('@/views/noob-guide/migration/index.vue'),
-        meta: { title: '快速迁移', icon: '3' },
-      },
-      // {
-      //   path: 'ad-blocking',
-      //   name: 'AdBlocking',
-      //   component: () => import('@/views/noob-guide/ad-blocking/index.vue'),
-      //   meta: { title: '追踪和广告拦截', icon: '4' },
-      // },
-      // {
-      //   path: 'personalise',
-      //   name: 'Personalise',
-      //   component: () => import('@/views/noob-guide/personalise/index.vue'),
-      //   meta: { title: '个性化', icon: '4' },
-      // },
     ]
   }
 ]
