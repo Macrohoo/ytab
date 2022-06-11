@@ -21,13 +21,18 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch } from "vue";
 import { useAppStore } from "@/store/app";
 import Link from "./Link.vue";
 import path from "path";
 import { isExternal } from "@/utils/validate";
+import {useWallpaperStore} from '@/store/wallpaper'
 
 export default defineComponent({
+  data() {
+    return {
+      sidebarThemeColor: useWallpaperStore().getCurrentWallpaperThemeColor
+    }
+  },
   components: {
     Link,
   },
@@ -93,7 +98,7 @@ export default defineComponent({
 .sd {
   width: 100%;
   height: 100%;
-  background-color: #6eacb374;
+  background-color: v-bind(sidebarThemeColor);
   backdrop-filter: blur(2px);
 
   .sd-mid {

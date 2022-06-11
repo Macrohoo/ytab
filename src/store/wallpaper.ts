@@ -9,7 +9,8 @@ export const useWallpaperStore = defineStore('wallpaper', {
   },
   getters: {
     getCurrentWallpaper: (state) => state.currentWallpaper,
-    getAllPictureWallpaper: () => JSON.parse(localStorage.getItem('WALLPAPER-PICTURE') as string)
+    getAllPictureWallpaper: () => JSON.parse(localStorage.getItem('WALLPAPER-PICTURE') as string),
+    getCurrentWallpaperThemeColor: (state) => state.currentWallpaper.themeColor
   },
   actions: {
     SET_CURRENTWALLPAPER(swallpaperObj: swallpaperTy) :void{

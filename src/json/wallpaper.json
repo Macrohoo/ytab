@@ -3,37 +3,37 @@
     {
       "name": "iyk1",
       "url": "https://kodo.mboke.top/ytab/iyk1.jpeg",
-      "themeColor": "rgb(64,57,51)",
+      "themeColor": "rgb(64,57,51,0.3)",
       "attribute": "picture"
     },
     {
       "name": "iyk2",
       "url": "https://kodo.mboke.top/ytab/iyk2.jpeg",
-      "themeColor": "rgb(178,214,238)",
+      "themeColor": "rgb(178,214,238,0.3)",
       "attribute": "picture"
     },
     {
       "name": "iyk3",
       "url": "https://kodo.mboke.top/ytab/iyk3.jpeg",
-      "themeColor": "rgb(207,218,201)",
+      "themeColor": "rgb(207,218,201,0.3)",
       "attribute": "picture"
     },
     {
       "name": "japan1",
       "url": "https://kodo.mboke.top/ytab/japan1.jpg",
-      "themeColor": "rgb(81,194,208)",
+      "themeColor": "rgb(81,194,208,0.3)",
       "attribute": "picture"
     },
     {
       "name": "japan2",
       "url": "https://kodo.mboke.top/ytab/japan2.jpg",
-      "themeColor": "rgb(44,91,121)",
+      "themeColor": "rgb(44,91,121,0.3)",
       "attribute": "picture"
     },
     {
       "name": "japan3",
       "url": "https://kodo.mboke.top/ytab/japan3.jpg",
-      "themeColor": "rgb(213,243,243)",
+      "themeColor": "rgb(213,243,243,0.3)",
       "attribute": "picture"
     }
   ],
