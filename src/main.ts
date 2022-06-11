@@ -21,12 +21,17 @@ import 'virtual:svg-icons-register' //引入雪碧图注册脚本，到这里雪
 import svgIcon from '@/icons/SvgIcon.vue'
 app.component('SvgIcon', svgIcon)
 
-//antd-icon
+//antd-icon  //这里会极大变大打包文件
 import AntdIcon from '@/icons/AntdIcon.vue'
 app.component('AntdIcon', AntdIcon)
 
 //router
 import router from './router'
+
+//analyze pic theme  这个工具暂时不用，太吃性能了
+// import analyze from 'rgbaster'
+// const result = await analyze('https://kodo.mboke.top/ytab/iyk7.mp4', { scale: 0.6 })
+// console.log(result)
 
 app.use(router).mount('#app');
 

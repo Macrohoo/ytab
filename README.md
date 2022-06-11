@@ -27,7 +27,7 @@ Vue3相关知识点补充：
   </transition>
 </router-view>
 ```
-v-slot 中解构的Component: VNodes to be passed to a <component>'s is prop.
+v-slot 中解构的Component: VNodes to be passed to a `<component>` is prop.
 
 ###### ❗️注意：Note you should be passing View components' props directly to the `<component>` rather than the `<router-view>`:
 ```html
@@ -48,6 +48,15 @@ useRouter：返回 router 实例。相当于在模板中使用 $router。必须�
 无论是 HTML5 history 模式还是 hash 模式，它的表现行为一致，所以，当你要切换路由模式，
 在 HTML5 history 模式下，router-link 会拦截点击事件，让浏览器不在重新加载页面。
 当你在 HTML5 history 模式下使用 base 选项之后，所有的 to 属性都不需要写（基路径）了。
+
+#### 四、setup和生命周期钩子的关系
+按照官方文档的说法：
+1、由于在执行setup函数时候，还没有执行created生命周期方法，所以在setup函数中，是无法使用data和methods。
+2、由于我们不能在setup函数中使用data和methods,所以VUE为了避免我们错误的使用,它直接将setup函数中this修改成了undefined。
+3、setup函数只能是同步的不能是异步的
+
+这里补充一下关键的点，比如我们在beforeCreate这个钩子中执行了一个方法，比如存一些变量到pinia中。
+然后我们写在setup中的某一个方法依赖于这个变量，那么在其他生命钩子中去调用这个setup中return出来的方法的时候，就会获取不到这个变量出错。
 
 Ts知识点补充：
 #### 一、const断言
@@ -76,3 +85,4 @@ type CountActions = ReturnType<typeof setCount> | ReturnType<typeof resetCount>;
 我们从 action creator 函数 setCount 和 resetCount 的返回类型中推断出一个很好的 action 联合。
 
 
+<mark>黄色高亮</mark>

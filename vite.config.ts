@@ -11,7 +11,7 @@ import AutoImport from 'unplugin-auto-import/vite'  //第三方库声明文件�
 
 
 export default defineConfig({
-  base: '/vue3/',   //基础路由
+  base: './',   //等同于vue-cli中publicPath基础路由，静态资源引用前正确路径
   plugins: [
     vue(),
     vueSetupExtend(),   //vue script setup syntax support the name attribute 再script标签中可以设置当前setup的name
@@ -64,7 +64,7 @@ export default defineConfig({
   build: {
     //target: 'es2015',
     minify: 'terser',
-    brotliSize: false,
+    brotliSize: false,   //禁用构建的 brotli 压缩大小报告。可以稍微改善构建速度
     chunkSizeWarningLimit: 1000,      //chunk 大小警告的限制（以 kbs 为单位）
     //remote console.log in prod
     terserOptions: {
