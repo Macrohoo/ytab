@@ -11,30 +11,26 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue';
 
 export default defineComponent({
   props: {
     width: {
       type: Number,
-      default: 900,
+      default: 900
     },
     height: {
       type: Number,
-      default: 713,
-    },
+      default: 713
+    }
   },
   setup(props) {
-    const clStyle = computed(() => {
-      return `width: ${props.width}px; height: ${props.height}px;`;
-    });
+    const clStyle = computed(() => `width: ${props.width}px; height: ${props.height}px;`);
 
-    const clBottomStyle = computed(() => {
-      return `width: 100%; height: calc(${props.height}px - 86px)`;
-    });
+    const clBottomStyle = computed(() => `width: 100%; height: calc(${props.height}px - 86px)`);
 
     return { clStyle, clBottomStyle };
-  },
+  }
 });
 </script>
 

@@ -7,9 +7,9 @@
 </template>
 
 <script setup lang="ts">
-const route = useRoute()
+const route = useRoute();
 
-const key = computed(() => route.path)
+const key = computed(() => route.path);
 </script>
 
 <style scoped lang="scss">

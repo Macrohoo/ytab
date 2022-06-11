@@ -5,24 +5,22 @@
 </template>
 
 <script setup lang="ts">
-import { isExternal } from '@/utils/validate'
+import { isExternal } from '@/utils/validate';
 
 const props = defineProps({
   to: {
     type: String,
     required: true
   }
-})
+});
 
-const isExternalValid = computed(() => {
-  return isExternal(props.to)
-})
+const isExternalValid = computed(() => isExternal(props.to));
 const type = computed(() => {
   if (isExternalValid.value) {
-    return 'a'
+    return 'a';
   }
-  return 'router-link'
-})
+  return 'router-link';
+});
 
 const linkProps = (to: string) => {
   if (isExternalValid.value) {
@@ -30,12 +28,12 @@ const linkProps = (to: string) => {
       href: to,
       target: '_blank',
       rel: 'noopener'
-    }
+    };
   }
   return {
-    to: to
-  }
-}
+    to
+  };
+};
 
 </script>
 

@@ -5,29 +5,29 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
+import { defineComponent, computed } from 'vue';
 
 export default defineComponent({
   name: 'SvgIcon',
   props: {
     prefix: {
       type: String,
-      default: 'icon',
+      default: 'icon'
     },
     name: {
       type: String,
-      required: true,
+      required: true
     },
     color: {
       type: String,
-      default: '#333',
-    },
+      default: '#333'
+    }
   },
   setup(props) {
-    const symbolId = computed(() => `#${props.prefix}-${props.name}`)
-    return { symbolId }
-  },
-})
+    const symbolId = computed(() => `#${props.prefix}-${props.name}`);
+    return { symbolId };
+  }
+});
 </script>
 <style scope lang="scss">
 .svg-icon {
@@ -38,4 +38,3 @@ export default defineComponent({
   fill: currentColor; /* 定义元素的颜色，currentColor是一个变量，这个变量的值就表示当前元素的color值，如果当前元素未设置color值，则从父元素继承 */
 }
 </style>
-

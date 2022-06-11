@@ -8,14 +8,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import { Sidebar, AppMain } from "./components";
+import { defineComponent } from 'vue';
+import { Sidebar, AppMain } from './components';
 
 export default defineComponent({
   components: {
     Sidebar,
     AppMain
-  },
+  }
 });
 </script>
 

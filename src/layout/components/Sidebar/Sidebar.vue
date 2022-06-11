@@ -21,38 +21,35 @@
 </template>
 
 <script lang="ts">
-import { useAppStore } from "@/store/app";
-import Link from "./Link.vue";
-import path from "path";
-import { isExternal } from "@/utils/validate";
-import {useWallpaperStore} from '@/store/wallpaper'
+import path from 'path';
+import { useAppStore } from '@/store/app';
+import Link from './Link.vue';
+import { isExternal } from '@/utils/validate';
+import { useWallpaperStore } from '@/store/wallpaper';
 
 export default defineComponent({
   data() {
     return {
       sidebarThemeColor: useWallpaperStore().getCurrentWallpaperThemeColor
-    }
+    };
   },
   components: {
-    Link,
+    Link
   },
   methods: {
     atdIconSelected(name: string | undefined) {
-      if(this.selectedRouteName === name) {
-        return 'font-size: 20px; color: #40a9ff'
-      } else {
-        return 'font-size: 20px; color: #eeeeee'
+      if (this.selectedRouteName === name) {
+        return 'font-size: 20px; color: #40a9ff';
       }
+      return 'font-size: 20px; color: #eeeeee';
     }
   },
   setup() {
     const appStore = useAppStore();
 
-    const routes = computed(() => {
-      return appStore.routes;
-    });
+    const routes = computed(() => appStore.routes);
 
-    //二级子路由需要拼接path 例如：/noob-guide/account-login
+    // 二级子路由需要拼接path 例如：/noob-guide/account-login
     const resolvePath = (basePath: string, routePath: string) => {
       if (isExternal(routePath)) {
         return routePath;
@@ -64,10 +61,10 @@ export default defineComponent({
       return path.resolve(basePath, routePath);
     };
 
-    let selectedRouteName = ref<string | undefined>('')
+    const selectedRouteName = ref<string | undefined>('');
     const chooseBlock = (routeName: string | undefined) => {
-      selectedRouteName.value = routeName
-    }
+      selectedRouteName.value = routeName;
+    };
 
     // const openKeys = ref<string[]>(["sub1"]);
     // const selectedKeys = ref<string[]>(["1"]);
@@ -90,7 +87,7 @@ export default defineComponent({
       chooseBlock,
       selectedRouteName
     };
-  },
+  }
 });
 </script>
 
