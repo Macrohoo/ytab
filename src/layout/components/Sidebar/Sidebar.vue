@@ -12,7 +12,7 @@
               :name="item.meta?.icon"
               :style="atdIconSelected(item.name)"
             ></AntdIcon>
-            <span class="text-white-sm sg-omit-sm" :class="{active: selectedRouteName === item.name}">{{ item.meta?.title }}</span>
+            <span class="sg-omit-sm" :class="{active: selectedRouteName === item.name}">{{ item.meta?.title }}</span>
           </div>
         </Link>
     </div>
@@ -24,13 +24,14 @@
 import path from 'path';
 import { useAppStore } from '@/store/app';
 import Link from './Link.vue';
-import { isExternal } from '@/utils/validate';
+import { isExternal, calcContrastColor } from '@/utils/validate';
 import { useWallpaperStore } from '@/store/wallpaper';
 
 export default defineComponent({
   data() {
     return {
-      sidebarThemeColor: useWallpaperStore().getCurrentWallpaperThemeColor
+      sidebarThemeColor: useWallpaperStore().getCurrentWallpaperThemeColor,
+      fontColor: calcContrastColor(useWallpaperStore().getCurrentWallpaperThemeColor)
     };
   },
   components: {
@@ -110,6 +111,9 @@ export default defineComponent({
       }
       span {
         font-weight: 500;
+        color: v-bind(fontColor);
+        font-size: 12px;
+        line-height: 18px;
         &.active{
           color: #40a9ff;
         }
