@@ -1,0 +1,121 @@
+<template>
+  <a-popover title="添加分组" trigger="click" placement="right" v-model:visible="visible">
+    <template #content>
+      <div class="group">
+        <span>图标</span>
+        <div class="group-icons flex flex-wrap">
+          <AntdIcon
+            class="s-group-icon"
+            v-for="item in groupIcons"
+            :name="item.name"
+            :style="'font-size: 22px; color: #40a9ff; margin-left: 6px; margin-top: 5px; padding: 4px; border-radius: 4px'"
+            :class="{selected : selectedIcon === item.name}"
+            @click="selectIcon(item.name)"
+          ></AntdIcon>
+        </div>
+      </div>
+      <a-input-group compact>
+        <a-input v-model:value="groupName" style="width: calc(100% - 80px)" placeholder="请输入组名"/>
+        <a-button type="primary" @click="submitGroup">确定</a-button>
+      </a-input-group>
+    </template>
+    <slot />
+  </a-popover>
+</template>
+
+<script lang="ts">
+import router from '../router'
+import { useAppStore } from '../store/app';
+
+export default defineComponent({
+  data() {
+    return {
+      visible: false,
+      groupName: '',
+      selectedIcon: '',
+      groupIcons: [
+        {
+          name: 'HeartOutlined'
+        },
+        {
+          name: 'MacCommandOutlined'
+        },
+        {
+          name: 'MobileOutlined'
+        },
+        {
+          name: 'MonitorOutlined'
+        },
+        {
+          name: 'ReadOutlined'
+        },
+        {
+          name: 'VideoCameraAddOutlined'
+        },
+        {
+          name: 'TrophyOutlined'
+        },
+        {
+          name: 'TableOutlined'
+        }
+      ]
+    }
+  },
+  methods: {
+    selectIcon(name: string) {
+      this.selectedIcon = name
+    },
+    submitGroup() {
+      if(this.groupName.length === 0 || this.selectedIcon.length === 0) return
+
+      let existedAsyncRoutes = JSON.parse(localStorage.getItem('ASYNC_ROUTES'))
+      let routeObj = {
+        path: this.selectedIcon.toLowerCase(),
+        name: this.selectedIcon.toLowerCase(),
+        meta: {
+          title: this.selectedIcon.toLowerCase(),
+          icon: this.selectedIcon
+        },
+        component: () => import('@/views/common-template/index.vue')
+      }
+
+      if(existedAsyncRoutes) {
+        existedAsyncRoutes.push(routeObj)
+        localStorage.setItem('ASYNC_ROUTES', JSON.stringify(existedAsyncRoutes))
+      } else {
+        localStorage.setItem('ASYNC_ROUTES', JSON.stringify([routeObj]))
+      }
+
+      //动态添加一个路由，往fater父路由中添加
+      router.addRoute('father', routeObj)
+      this.visible = false
+
+      //刷新侧边栏UI
+      this.$nextTick(() => {
+        useAppStore().ADD_ASYNC_ROUTES(routeObj)
+      })
+    }
+  },
+  setup () {
+
+
+    return {}
+  }
+})
+</script>
+
+<style scoped lang="scss">
+.group-icons{
+  width: 224px;
+  height: 66px;
+  margin-bottom: 10px;
+  .s-group-icon {
+    &:hover {
+      background-color: #1278cb32;
+    }
+    &.selected {
+      background-color: #1278cb32;
+    }
+  }
+}
+</style>

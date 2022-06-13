@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { constantRoutes } from '@/router'
-import { RouterTy } from '~/router'
+import { RouterTy, RouterRowTy } from '~/router'
 
 
 export const useAppStore = defineStore('app', {
@@ -12,6 +12,12 @@ export const useAppStore = defineStore('app', {
     }
   },
   actions: {
+    ADD_ASYNC_ROUTES(routeObj: RouterRowTy) {
+      this.$patch((state) => {
+        state.routes[0].children?.push(routeObj)
+      })
+    },
+
     /*keepAlive缓存操作*/  //缓存性能优化后面再搞，先放一下
     ADD_CACHED_VIEW(view: string) {
       this.$patch((state) => {

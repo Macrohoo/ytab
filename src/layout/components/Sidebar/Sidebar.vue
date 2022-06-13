@@ -6,15 +6,21 @@
           <div
             class="sd-mid-div flex flex-direction justify-around align-center"
             :class="{active: selectedRouteName === item.name}"
-            @click.stop="chooseBlock(item.name)"
+            @click.stop="chooseBlock(item.name!)"
           >
             <AntdIcon
               :name="item.meta?.icon"
-              :style="atdIconSelected(item.name)"
+              :style="atdIconSelected(item.name!)"
             ></AntdIcon>
             <span class="sg-omit-sm" :class="{active: selectedRouteName === item.name}">{{ item.meta?.title }}</span>
           </div>
         </Link>
+        <AddGroupBtn>
+          <AntdIcon
+            :name="'PlusSquareOutlined'"
+            :style="'font-size: 20px; color: #40a9ff'"
+          ></AntdIcon>
+        </AddGroupBtn>
     </div>
     <div class="sd-bottom"></div>
   </div>
@@ -24,6 +30,7 @@
 import path from 'path';
 import { useAppStore } from '@/store/app';
 import Link from './Link.vue';
+import AddGroupBtn from '@/components/AddGroupBtn.vue'
 import { isExternal, calcContrastColor } from '@/utils/validate';
 import { useWallpaperStore } from '@/store/wallpaper';
 
@@ -35,10 +42,11 @@ export default defineComponent({
     };
   },
   components: {
-    Link
+    Link,
+    AddGroupBtn
   },
   methods: {
-    atdIconSelected(name: string | undefined) {
+    atdIconSelected(name: string) {
       if (this.selectedRouteName === name) {
         return 'font-size: 20px; color: #40a9ff';
       }
@@ -62,9 +70,9 @@ export default defineComponent({
       return path.resolve(basePath, routePath);
     };
 
-    const selectedRouteName = ref<string | undefined>('');
-    const chooseBlock = (routeName: string | undefined) => {
-      selectedRouteName.value = routeName;
+    let selectedRouteName = ref<string>('');
+    const chooseBlock = (routeName: string) => {
+      selectedRouteName.value = routeName!;
     };
 
     // const openKeys = ref<string[]>(["sub1"]);

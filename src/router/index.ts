@@ -7,6 +7,7 @@ export const constantRoutes: RouterTy = [
     path: '/',
     component: Layout,
     redirect: '/home',
+    name: 'father',
     children: [
       {
         path: 'home',

@@ -6,8 +6,12 @@ import '@vue/runtime-core'
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     AButton: typeof import('ant-design-vue/es')['Button']
+    AddGroupBtn: typeof import('./src/components/AddGroupBtn.vue')['default']
+    AInput: typeof import('ant-design-vue/es')['Input']
+    AInputGroup: typeof import('ant-design-vue/es')['InputGroup']
     AMenu: typeof import('ant-design-vue/es')['Menu']
     AMenuItem: typeof import('ant-design-vue/es')['MenuItem']
+    APopover: typeof import('ant-design-vue/es')['Popover']
     ASubMenu: typeof import('ant-design-vue/es')['SubMenu']
     ContentLayout: typeof import('./src/components/ContentLayout.vue')['default']
     Header: typeof import('./src/components/Header.vue')['default']

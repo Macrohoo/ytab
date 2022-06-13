@@ -23,6 +23,7 @@ export default defineComponent({
 .layout-wrapper {
   width: 100%;
   height: 100%;
+  z-index: 1000;
   .main-container {
     height: 100%;
     margin-left: $sideBarWidth;
