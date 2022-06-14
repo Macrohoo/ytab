@@ -51,7 +51,7 @@ export default defineComponent({
         return 'font-size: 20px; color: #40a9ff';
       }
       return 'font-size: 20px; color: #eeeeee';
-    }
+    },
   },
   setup() {
     const appStore = useAppStore();

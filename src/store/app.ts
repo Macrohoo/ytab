@@ -6,15 +6,24 @@ import { RouterTy, RouterRowTy } from '~/router'
 export const useAppStore = defineStore('app', {
   state: () => {
     return {
-      sidebar: { opened: true },
       cachedViews: [] as Array<string>,
-      routes: constantRoutes, //目前这里只有静态路由集合
+      routes: constantRoutes, //静态路由和动态路由集合
+      backupAsyncRoutes: [] as RouterTy   //这个备份作为是否已经初始化动态路由的标记
     }
+  },
+  getters: {
+    getAsyncRoutes: () => JSON.parse(localStorage.getItem('ASYNC_ROUTES')!),
+    getIsInitAsyncRoutes: (state) => state.backupAsyncRoutes.length > 0
   },
   actions: {
     ADD_ASYNC_ROUTES(routeObj: RouterRowTy) {
       this.$patch((state) => {
         state.routes[0].children?.push(routeObj)
+      })
+    },
+    ADD_BACKUP_ASYNC_ROUTES(routeObj: RouterRowTy) {
+      this.$patch(state => {
+        state.backupAsyncRoutes.push(routeObj)
       })
     },
 

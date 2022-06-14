@@ -15,7 +15,7 @@ export default defineComponent({
     this.setCurrentWallpaper();
     this.$nextTick(() => {
       this.transBackground()
-    });
+    })
   },
   methods: {
     transBackground() :void {

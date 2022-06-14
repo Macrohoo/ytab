@@ -28,6 +28,8 @@ app.component('AntdIcon', AntdIcon)
 //router
 import router from './router'
 
+import './initAsyncRoutes'
+
 //analyze pic theme  这个工具暂时不用，太吃性能了
 // import analyze from 'rgbaster'
 // const result = await analyze('https://kodo.mboke.top/ytab/iyk7.mp4', { scale: 0.6 })

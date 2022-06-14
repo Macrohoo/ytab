@@ -68,20 +68,20 @@ export default defineComponent({
     submitGroup() {
       if(this.groupName.length === 0 || this.selectedIcon.length === 0) return
 
-      let existedAsyncRoutes = JSON.parse(localStorage.getItem('ASYNC_ROUTES'))
+      let localStorageExistedAsyncRoutes = JSON.parse(localStorage.getItem('ASYNC_ROUTES'))
       let routeObj = {
         path: this.selectedIcon.toLowerCase(),
         name: this.selectedIcon.toLowerCase(),
         meta: {
-          title: this.selectedIcon.toLowerCase(),
+          title: this.groupName,
           icon: this.selectedIcon
         },
         component: () => import('@/views/common-template/index.vue')
       }
 
-      if(existedAsyncRoutes) {
-        existedAsyncRoutes.push(routeObj)
-        localStorage.setItem('ASYNC_ROUTES', JSON.stringify(existedAsyncRoutes))
+      if(localStorageExistedAsyncRoutes) {
+        localStorageExistedAsyncRoutes.push(routeObj)
+        localStorage.setItem('ASYNC_ROUTES', JSON.stringify(localStorageExistedAsyncRoutes))
       } else {
         localStorage.setItem('ASYNC_ROUTES', JSON.stringify([routeObj]))
       }
