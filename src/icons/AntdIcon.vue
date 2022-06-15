@@ -23,7 +23,7 @@ export default defineComponent({
     },
     style: {
       require: false,
-      type: String  //在模版编译阶段会把style的内容自动转换成对象，所以这里接收的部分也要是对象，不能是String
+      type: String // 在模版编译阶段会把style的内容自动转换成对象，所以这里接收的部分也要是对象，不能是String
     },
     twoToneColor: {
       require: false,

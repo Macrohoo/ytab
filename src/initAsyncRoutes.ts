@@ -4,12 +4,16 @@ import { useAppStore } from '@/store/app';
 
 function initAsnycRoutes() {
   const asyncRoutes = useAppStore().getAsyncRoutes
-  asyncRoutes && asyncRoutes.forEach((e: RouterRowTy) => {
-    e.component = () => import('@/views/common-template/index.vue')
-    router.addRoute('father', e)
-    useAppStore().ADD_BACKUP_ASYNC_ROUTES(e)
-    useAppStore().ADD_ASYNC_ROUTES(e)
-  })
+  if(asyncRoutes) {
+    asyncRoutes.forEach((e: RouterRowTy) => {
+      e.component = () => import('@/views/common-template/index.vue')
+      router.addRoute('father', e)
+      useAppStore().MODIFY_ISINITASYNCROUTES(true)
+      useAppStore().ADD_ASYNC_ROUTES(e)
+    })
+  } else {
+    useAppStore().MODIFY_ISINITASYNCROUTES(true)
+  }
 }
 
 router.beforeEach((to, from, next) => {

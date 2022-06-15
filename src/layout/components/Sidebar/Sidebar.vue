@@ -30,7 +30,7 @@
 import path from 'path';
 import { useAppStore } from '@/store/app';
 import Link from './Link.vue';
-import AddGroupBtn from '@/components/AddGroupBtn.vue'
+import AddGroupBtn from '@/components/AddGroupBtn.vue';
 import { isExternal, calcContrastColor } from '@/utils/validate';
 import { useWallpaperStore } from '@/store/wallpaper';
 
@@ -51,7 +51,7 @@ export default defineComponent({
         return 'font-size: 20px; color: #40a9ff';
       }
       return 'font-size: 20px; color: #eeeeee';
-    },
+    }
   },
   setup() {
     const appStore = useAppStore();
@@ -70,7 +70,7 @@ export default defineComponent({
       return path.resolve(basePath, routePath);
     };
 
-    let selectedRouteName = ref<string>('');
+    const selectedRouteName = ref<string>('');
     const chooseBlock = (routeName: string) => {
       selectedRouteName.value = routeName!;
     };

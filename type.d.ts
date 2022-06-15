@@ -1,12 +1,7 @@
-//图片主题色工具类型
-declare module "rgbaster" {
-  interface Opts {
-    ignore?: string[];
-    scale?: number;
-    skipTransparentPixels?: boolean;
+//globalProperties挂载的类型扩展
+export {}
+declare module "@vue/runtime-core" {
+  interface ComponentCustomProperties {
+    $message: any
   }
-  export default function (src: string, opts?: Opts): Promise<{
-    color: string;
-    count: number;
-  }[]>;
 }

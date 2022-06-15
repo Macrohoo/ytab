@@ -14,7 +14,9 @@ app.use(createPinia())
 //antd
 import Antd from 'ant-design-vue';
 import 'ant-design-vue/dist/antd.css';
+import { message } from 'ant-design-vue';
 app.use(Antd)
+app.config.globalProperties.$message = message
 
 //svg-icon
 import 'virtual:svg-icons-register' //引入雪碧图注册脚本，到这里雪碧图已经生成

@@ -8,12 +8,12 @@ export const useAppStore = defineStore('app', {
     return {
       cachedViews: [] as Array<string>,
       routes: constantRoutes, //静态路由和动态路由集合
-      backupAsyncRoutes: [] as RouterTy   //这个备份作为是否已经初始化动态路由的标记
+      isInitAsyncRoutes: false as boolean
     }
   },
   getters: {
     getAsyncRoutes: () => JSON.parse(localStorage.getItem('ASYNC_ROUTES')!),
-    getIsInitAsyncRoutes: (state) => state.backupAsyncRoutes.length > 0
+    getIsInitAsyncRoutes: (state) => state.isInitAsyncRoutes
   },
   actions: {
     ADD_ASYNC_ROUTES(routeObj: RouterRowTy) {
@@ -21,9 +21,9 @@ export const useAppStore = defineStore('app', {
         state.routes[0].children?.push(routeObj)
       })
     },
-    ADD_BACKUP_ASYNC_ROUTES(routeObj: RouterRowTy) {
+    MODIFY_ISINITASYNCROUTES(bool: boolean) {
       this.$patch(state => {
-        state.backupAsyncRoutes.push(routeObj)
+        state.isInitAsyncRoutes = bool
       })
     },
 

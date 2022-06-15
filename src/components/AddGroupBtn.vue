@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts">
-import router from '../router'
+import router from '../router';
 import { useAppStore } from '../store/app';
 
 export default defineComponent({
@@ -59,17 +59,22 @@ export default defineComponent({
           name: 'TableOutlined'
         }
       ]
-    }
+    };
   },
   methods: {
     selectIcon(name: string) {
-      this.selectedIcon = name
+      this.selectedIcon = name;
     },
     submitGroup() {
-      if(this.groupName.length === 0 || this.selectedIcon.length === 0) return
+      if (this.groupName.length === 0 || this.selectedIcon.length === 0) return;
 
-      let localStorageExistedAsyncRoutes = JSON.parse(localStorage.getItem('ASYNC_ROUTES'))
-      let routeObj = {
+      if (useAppStore().routes[0].children.length > 8) {
+        this.$message.error('最多9个分组!');
+        return;
+      }
+
+      const localStorageExistedAsyncRoutes = JSON.parse(localStorage.getItem('ASYNC_ROUTES'));
+      const routeObj = {
         path: this.selectedIcon.toLowerCase(),
         name: this.selectedIcon.toLowerCase(),
         meta: {
@@ -77,31 +82,29 @@ export default defineComponent({
           icon: this.selectedIcon
         },
         component: () => import('@/views/common-template/index.vue')
-      }
+      };
 
-      if(localStorageExistedAsyncRoutes) {
-        localStorageExistedAsyncRoutes.push(routeObj)
-        localStorage.setItem('ASYNC_ROUTES', JSON.stringify(localStorageExistedAsyncRoutes))
+      if (localStorageExistedAsyncRoutes) {
+        localStorageExistedAsyncRoutes.push(routeObj);
+        localStorage.setItem('ASYNC_ROUTES', JSON.stringify(localStorageExistedAsyncRoutes));
       } else {
-        localStorage.setItem('ASYNC_ROUTES', JSON.stringify([routeObj]))
+        localStorage.setItem('ASYNC_ROUTES', JSON.stringify([routeObj]));
       }
 
-      //动态添加一个路由，往fater父路由中添加
-      router.addRoute('father', routeObj)
-      this.visible = false
+      // 动态添加一个路由，往fater父路由中添加
+      router.addRoute('father', routeObj);
+      this.visible = false;
 
-      //刷新侧边栏UI
+      // 刷新侧边栏UI
       this.$nextTick(() => {
-        useAppStore().ADD_ASYNC_ROUTES(routeObj)
-      })
+        useAppStore().ADD_ASYNC_ROUTES(routeObj);
+      });
     }
   },
-  setup () {
-
-
-    return {}
+  setup() {
+    return {};
   }
-})
+});
 </script>
 
 <style scoped lang="scss">
