@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
-import 'normalize.css/normalize.css' // A modern alternative to CSS resets
+import '@/styles/reset.css'
+//import 'normalize.css/normalize.css' // A modern alternative to CSS resets //个人感觉reset不干净，比如input原生组件
 import App from './App.vue'
 const app = createApp(App);
 

@@ -222,3 +222,136 @@ createArray = function<T>(length: number, value: T): Array<T> {
 
 createArray(3, 'x'); // ['x', 'x', 'x']
 ```
+
+#### 六、关于extends关键字在type中
+```typescript
+// 示例2
+interface A1 {
+  name: string
+}
+
+interface A2 {
+  name: string
+  age: number
+}
+// A的类型为string
+type A = A2 extends A1 ? string : number
+
+const a: A = 'this is string'
+// A1，A2两个接口，满足A2的接口一定可以满足A1，所以条件为真，A的类型取string
+```
+*如果extends前面的类型能够赋值给extends后面的类型，那么表达式判断为真，否则为假*
+*或者说如果extends前面包含的类型是extends后面包含的类型的‘子集’*
+
+延伸：
+```typescript
+type A1 = 'x' extends 'x' ? string : number; // string
+type A2 = 'x' | 'y' extends 'x' ? string : number; // number
+
+type P<T> = T extends 'x' ? string : number;
+type A3 = P<'x' | 'y'>  // A3的类型是 string | number
+
+// A1和A3为什么不同？
+
+```
+*对于使用extends关键字的条件类型（即上面的三元表达式类型），如果extends前面的参数是一个泛型类型，当传入该参数的是联合类型，则使用分配律计算最终的结果。分配律是指，将联合类型的联合项拆成单项，分别代入条件类型，然后将每个单项代入得到的结果再联合起来，得到最终的判断结果。*
+`P<'x' | 'y'> => P<'x'> | P<'y'>`
+'x'代入得到
+`'x' extends 'x' ? string : number => string`
+'y'代入得到
+`'y' extends 'x' ? string : number => number`
+然后将每一项代入得到的结果联合起来，得到string | number
+总之，满足两个要点即可适用分配律：第一，参数是泛型类型，第二，代入参数的是联合类型
+
+#### 七、关于extends关键字在泛型约束中
+```typescript
+interface Lengthwise {
+  length: number;
+}
+
+function loggingIdentity<T extends Lengthwise>(arg: T): T {
+  console.log(arg.length);  // Now we know it has a .length property, so no more error
+  return arg;
+}
+```
+现在这个泛型函数被定义了约束，因此它不再是适用于任意类型：
+`loggingIdentity(3);  // Error, number doesn't have a .length property`
+
+我们需要传入符合约束类型的值，必须包含必须的属性：
+`loggingIdentity({length: 10, value: 3});`
+
+#### 八、TS高级类型
+> 1、❤️Exclude类型
+```typescript
+type Exclude<T, U> = T extends U ? never : T
+// 左右两边是相等的，也是Exclude定义的源码。
+```
+Exclude作用是从第一个联合类型参数中，将第二个联合类型中出现的联合项全部排除，只留下没有出现过的参数。
+例子：`type A = Exclude<'key1' | 'key2', 'key2'> // 'key1'`
+
+剖析一下Exclude的定义，来尝试将实例拆开看看发生了什么：
+```typescript
+type A = `Exclude<'key1' | 'key2', 'key2'>`
+
+// 等价于
+
+type A = `Exclude<'key1', 'key2'>` | `Exclude<'key2', 'key2'>`
+
+// =>
+
+type A = ('key1' extends 'key2' ? never : 'key1') | ('key2' extends 'key2' ? never : 'key2')
+
+// =>
+
+// never是所有类型的子类型
+type A = 'key1' | never = 'key1'
+```
+
+> 2、❤️Pick类型
+```typescript
+// 高级类型Pick的定义
+type Pick<T, K extends keyof T> = {
+  [P in K]: T[P]
+}
+```
+Pick的意思是，从接口T中，将联合类型K中涉及到的项挑选出来，形成一个新的接口，其中K extends keyof T则是用来约束K的条件，即，传入K的参数必须使得这个条件为真，否则ts就会报错，也就是说，K的联合项必须来自接口T的属性。
+
+> 3、❤️Partial类型
+```typescript
+type Partial<T> = {
+  [P in keyof T]?: T[P];
+};
+
+// 相当于: type PartialUser = { id?: number; age?: number; name?: string; }
+type PartialUser = Partial<User>
+```
+把接口的类型转换成可选项
+
+> 4、❤️Omit类型
+```typescript
+interface Todo {
+  title: string
+  description: string
+  completed: boolean
+}
+
+type TodoPreview = MyOmit<Todo, 'description' | 'title'>
+
+const todo: TodoPreview = {
+  completed: false,
+}
+```
+Omit 会创建一个省略 K 中字段的 T 对象。
+
+
+## TS错误修正笔记
+#### 一、类型“EventTarget"上不存在属性“value”
+```Vue
+<input type="text" class="search" :value="searchWord" @input="searchWord = $event.target.value" style="font-size: 20px" @keyup.enter="enterSubmit" />
+
+//类型“EventTarget"上不存在属性“value”
+```
+
+修正：
+`(event.target as HTMLInputElement).value`
+这应该通过让TS知道这event.target是一个HTMLInputElement本身具有的错误来摆脱错误value.在指定之前,TS可能只知道event单独是一个HTMLInputElement,因此根据TS,键入的target是一些随机映射的值,可以是任何东西

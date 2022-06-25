@@ -73,7 +73,7 @@ export default defineComponent({
         return;
       }
 
-      const localStorageExistedAsyncRoutes = JSON.parse(localStorage.getItem('ASYNC_ROUTES'));
+      const localStorageExistedAsyncRoutes = JSON.parse(localStorage.getItem('ASYNC_ROUTES')!);
       const routeObj = {
         path: this.selectedIcon.toLowerCase(),
         name: this.selectedIcon.toLowerCase(),

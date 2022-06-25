@@ -1,19 +1,27 @@
 <template>
   <div>
-    template
+    <SearchEngine class="se"></SearchEngine>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import SearchEngine from '@/components/SearchEngine.vue'
 
 export default defineComponent({
+  components: {
+    SearchEngine
+  },
   setup() {
     return {};
   }
 });
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.se {
+  position: fixed;
+  top: 50px;
+  left: 250px;
+}
 
 </style>
