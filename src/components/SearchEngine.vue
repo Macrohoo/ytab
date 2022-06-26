@@ -2,28 +2,30 @@
   <div class="top-search flex justify-between align-center">
     <a-popover placement="bottomLeft" trigger="click" overlayClassName="poppop" v-model:visible="visible">
       <template #content>
-        <div class="card-list flex flex-wrap justify-center align-center">
-          <div v-for="(item, index) in allSearchEngines" :key="index" class="card flex justify-start align-center"
+        <main class="card-list flex flex-wrap justify-center align-center">
+          <div v-for="(item, index) in allSearchEngines" :key="index" class="card flex justify-start align-center shadow"
             @click="chooseSearch(item)">
-            <SvgIcon :name="item.slinkLogo" style="font-size: 30px; margin-left: 20px;"></SvgIcon>
+            <SvgIcon :name="item.slinkLogo" style="font-size: 34px; margin-left: 20px;"></SvgIcon>
             <div style="margin-left: 15px">{{ item.name }}</div>
           </div>
-        </div>
+        </main>
       </template>
       <template #title>
-        <div class="card-head flex justify-between">
-          <div class="left flex align-center justify-center">选择您的默认搜索引擎:</div>
-          <div class="right flex align-center justify-center">
-            <p>搜索热词:</p>
-          </div>
-        </div>
+        <header class="card-head flex justify-between">
+          <div class="card-head-left flex align-center justify-center">选择您的默认搜索引擎:</div>
+          <p class="card-head-right flex align-center justify-center cl-ant-p">搜索热词:</p>
+        </header>
       </template>
-      <SvgIcon :name="currentSearchEngine.slinkLogo" style="font-size: 30px; margin-left: 20px;"></SvgIcon>
+      <SvgIcon :name="currentSearchEngine.slinkLogo" style="font-size: 34px; margin-left: 20px;"></SvgIcon>
     </a-popover>
     <input type="text" class="search" :value="searchWord"
       @input="searchWord = ($event.target as HTMLInputElement).value" style="font-size: 20px"
       @keyup.enter="enterSubmit" />
-    <i class="search-logo el-icon-search" @click="enterSubmit"></i>
+    <AntdIcon
+      name="SearchOutlined"
+      style="font-size: 30px; margin-right: 20px;"
+      @click.stop="enterSubmit()"
+    ></AntdIcon>
   </div>
 </template>
 
@@ -90,13 +92,13 @@ export default defineComponent({
     width: 600px;
     height: 30px;
 
-    .left {
+    .card-head-left {
       font-size: 14px;
       color: #999;
       margin-left: 10px;
     }
 
-    .right {
+    .card-head-right {
       margin-right: 20px;
     }
   }

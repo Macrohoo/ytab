@@ -22,7 +22,6 @@ const key = computed(() => route.path);
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: -40px;
 }
 
 </style>

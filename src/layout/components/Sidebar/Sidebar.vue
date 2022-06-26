@@ -2,25 +2,24 @@
   <div id="sidebar" class="sd flex flex-direction justify-center align-center">
     <div class="sd-top"></div>
     <div class="sd-mid flex flex-direction justify-around align-center">
-        <Link :to="resolvePath(routes[0].path, item.path)" v-for="item in routes[0].children" :key="item.path">
-          <div
-            class="sd-mid-div flex flex-direction justify-around align-center"
-            :class="{active: selectedRouteName === item.name}"
-            @click.stop="chooseBlock(item.name!)"
-          >
-            <AntdIcon
-              :name="item.meta?.icon"
-              :style="atdIconSelected(item.name!)"
-            ></AntdIcon>
-            <span class="sg-omit-sm" :class="{active: selectedRouteName === item.name}">{{ item.meta?.title }}</span>
+      <Link :to="resolvePath(routes[0].path, item.path)" v-for="item in routes[0].children" :key="item.path">
+        <a-dropdown :trigger="['contextmenu']" :overlayStyle="{'width': '80px'}">
+          <div class="sd-mid-div flex flex-direction justify-around align-center"
+            :class="{ active: selectedRouteName === item.name }" @click.stop="chooseBlock(item.name!)">
+            <AntdIcon :name="item.meta?.icon" :style="atdIconSelected(item.name!)"></AntdIcon>
+            <span class="sg-omit-sm" :class="{ active: selectedRouteName === item.name }">{{ item.meta?.title }}</span>
           </div>
-        </Link>
-        <AddGroupBtn>
-          <AntdIcon
-            :name="'PlusSquareOutlined'"
-            :style="'font-size: 20px; color: #40a9ff'"
-          ></AntdIcon>
-        </AddGroupBtn>
+          <template #overlay>
+            <a-menu>
+              <a-menu-item key="1">编辑</a-menu-item>
+              <a-menu-item key="2" @click.stop="deleteRoute(item)">删除</a-menu-item>
+            </a-menu>
+          </template>
+        </a-dropdown>
+      </Link>
+      <AddGroupBtn>
+        <AntdIcon :name="'PlusSquareOutlined'" :style="'font-size: 20px; color: #40a9ff'"></AntdIcon>
+      </AddGroupBtn>
     </div>
     <div class="sd-bottom"></div>
   </div>
@@ -33,6 +32,8 @@ import Link from './Link.vue';
 import AddGroupBtn from '@/components/AddGroupBtn.vue';
 import { isExternal, calcContrastColor } from '@/utils/validate';
 import { useWallpaperStore } from '@/store/wallpaper';
+import { RouterRowTy } from '~/router'
+import router from '@/router'
 
 export default defineComponent({
   data() {
@@ -51,6 +52,16 @@ export default defineComponent({
         return 'font-size: 20px; color: #40a9ff';
       }
       return 'font-size: 20px; color: #eeeeee';
+    },
+    deleteRoute(item: RouterRowTy) {
+      if(item.name === 'home') {
+        this.$message.error('主页无法删除');
+      } else {
+        router.removeRoute(item.name!)
+        this.$nextTick(() => {
+          useAppStore().REMOVE_ASYNC_ROUTE()
+        })
+      }
     }
   },
   setup() {
@@ -110,19 +121,23 @@ export default defineComponent({
   .sd-mid {
     width: 100%;
     height: 60%;
+
     .sd-mid-div {
       width: 50px;
       height: 50px;
-      &.active{
+
+      &.active {
         background-color: #c6d3dd;
         color: #40a9ff;
       }
+
       span {
         font-weight: 500;
         color: v-bind(fontColor);
         font-size: 12px;
         line-height: 18px;
-        &.active{
+
+        &.active {
           color: #40a9ff;
         }
       }

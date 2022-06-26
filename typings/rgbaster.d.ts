@@ -1,4 +1,4 @@
-//图片主题色工具类型
+// //图片主题色工具类型
 declare module "rgbaster" {
   interface Opts {
     ignore?: string[];

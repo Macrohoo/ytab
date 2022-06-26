@@ -1,6 +1,7 @@
 import router from '@/router'
 import {RouterRowTy} from '~/router'
 import { useAppStore } from '@/store/app';
+import { RouteLocationNormalized } from 'vue-router'   //to参数的类型 在vue-router包的声明文件中已经全局导出
 
 function initAsnycRoutes() {
   const asyncRoutes = useAppStore().getAsyncRoutes
@@ -16,7 +17,8 @@ function initAsnycRoutes() {
   }
 }
 
-router.beforeEach((to, from, next) => {
+router.beforeEach((to: RouteLocationNormalized, from, next) => {
+  console.log(to, '????????????????')
   if(useAppStore().getIsInitAsyncRoutes) {
     next()
   } else {

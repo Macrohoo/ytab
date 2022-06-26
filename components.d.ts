@@ -7,6 +7,7 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     AButton: typeof import('ant-design-vue/es')['Button']
     AddGroupBtn: typeof import('./src/components/AddGroupBtn.vue')['default']
+    ADropdown: typeof import('ant-design-vue/es')['Dropdown']
     AInput: typeof import('ant-design-vue/es')['Input']
     AInputGroup: typeof import('ant-design-vue/es')['InputGroup']
     AMenu: typeof import('ant-design-vue/es')['Menu']

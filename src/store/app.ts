@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { constantRoutes } from '@/router'
 import { RouterTy, RouterRowTy } from '~/router'
+import router from '@/router'
 
 
 export const useAppStore = defineStore('app', {
@@ -21,6 +22,17 @@ export const useAppStore = defineStore('app', {
         state.routes[0].children?.push(routeObj)
       })
     },
+
+    REMOVE_ASYNC_ROUTE() {
+      this.$patch(state => {
+        state.routes[0].children?.pop()
+        let prevRoutes = JSON.parse(localStorage.getItem('ASYNC_ROUTES')!)
+        prevRoutes.pop()
+        localStorage.setItem('ASYNC_ROUTES', JSON.stringify(prevRoutes))
+        router.replace(`/${prevRoutes.at(-1).path}`)  //mark关键 替换历史堆栈中的当前 entry，以编程方式导航到一个新的 URL
+      })
+    },
+
     MODIFY_ISINITASYNCROUTES(bool: boolean) {
       this.$patch(state => {
         state.isInitAsyncRoutes = bool
