@@ -23,14 +23,17 @@ export const useAppStore = defineStore('app', {
       })
     },
 
-    REMOVE_ASYNC_ROUTE() {
+    async REMOVE_ASYNC_ROUTE() {
+      let prevRoute
       this.$patch(state => {
         state.routes[0].children?.pop()
         let prevRoutes = JSON.parse(localStorage.getItem('ASYNC_ROUTES')!)
         prevRoutes.pop()
         localStorage.setItem('ASYNC_ROUTES', JSON.stringify(prevRoutes))
         router.replace(`/${prevRoutes.at(-1).path}`)  //mark关键 替换历史堆栈中的当前 entry，以编程方式导航到一个新的 URL
+        prevRoute = prevRoutes.at(-1).path
       })
+      return prevRoute
     },
 
     MODIFY_ISINITASYNCROUTES(bool: boolean) {

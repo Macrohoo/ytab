@@ -58,8 +58,8 @@ export default defineComponent({
         this.$message.error('主页无法删除');
       } else {
         router.removeRoute(item.name!)
-        this.$nextTick(() => {
-          useAppStore().REMOVE_ASYNC_ROUTE()
+        this.$nextTick(async () => {
+          this.selectedRouteName = (await useAppStore().REMOVE_ASYNC_ROUTE())!
         })
       }
     }
@@ -81,7 +81,7 @@ export default defineComponent({
       return path.resolve(basePath, routePath);
     };
 
-    const selectedRouteName = ref<string>('');
+    let selectedRouteName = ref<string>('');
     const chooseBlock = (routeName: string) => {
       selectedRouteName.value = routeName!;
     };
