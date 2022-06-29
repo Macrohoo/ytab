@@ -10,6 +10,7 @@ export default defineComponent({
   beforeCreate() {
     DataBeforeGuard.initWp();
     DataBeforeGuard.initSearchEngine()
+    DataBeforeGuard.initHome()
   },
   mounted() {
     // 目前先这里尝试把第二张静态壁纸设置为当前壁纸

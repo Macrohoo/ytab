@@ -341,7 +341,7 @@ const todo: TodoPreview = {
   completed: false,
 }
 ```
-Omit 会创建一个省略 K 中字段的 T 对象。
+Omit 会创建一个省略 K(Todo) 中字段的 T('description' | 'title') 对象。
 
 
 ## TS错误修正笔记

@@ -91,6 +91,12 @@ export default defineComponent({
         localStorage.setItem('ASYNC_ROUTES', JSON.stringify([routeObj]));
       }
 
+      //创建成功后加入创建模块的grids列表
+      localStorage.setItem(this.groupName.toUpperCase(), JSON.stringify({
+        icon: [],
+        component: []
+      }))
+
       // 动态添加一个路由，往fater父路由中添加
       router.addRoute('father', routeObj);
       this.visible = false;

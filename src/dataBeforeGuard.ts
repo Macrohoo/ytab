@@ -2,6 +2,8 @@
 //服务端数据库中配置变量、本地json数据
 import wallpaper from '@/json/wallpaper.json'
 import searchEngine from '@/json/searchEngine.json'
+import home from '@/json/home.json'
+
 
 //抽象类是不允许被实例化
 export default abstract class DataBeforeGuard {
@@ -14,6 +16,12 @@ export default abstract class DataBeforeGuard {
     localStorage.setItem('SEARCH-ENGINE', JSON.stringify(searchEngine.searchList))
     if(!localStorage.getItem('CURRENTSEARCH-ENGINE')) {
       localStorage.setItem('CURRENTSEARCH-ENGINE', JSON.stringify(searchEngine.searchList[0]))
+    }
+  }
+
+  static initHome() {
+    if(!localStorage.getItem('HOME')) {
+      localStorage.setItem('主页', JSON.stringify(home))
     }
   }
 }

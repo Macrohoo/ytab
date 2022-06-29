@@ -2,7 +2,8 @@
   <div class="ya-matter flex flex-direction align-center">
     <header class="flex justify-center align-center">
       <SearchEngine class="se" />
-      <button type="button" @click="addNewWidget('https://files.codelife.cc/website/12306.svg', '12306')">Add Widget</button>
+      <button type="button" @click="addNewWidget('https://files.codelife.cc/website/12306.svg', '12306')">Add
+        Widget</button>
     </header>
     <main>
       <section class="grid-stack beautiful-sm-scroll"></section>
@@ -13,14 +14,14 @@
 <script lang="ts">
 import SearchEngine from '@/components/SearchEngine.vue'
 import { GridStack } from 'gridstack';
-import home from '@/json/home.json'
+import { useGridsStore } from '@/store/grids'
 
 export default defineComponent({
   components: {
     SearchEngine
   },
   setup() {
-    const $message: {success: Function} = inject('$message')!
+    const $message: { success: Function } = inject('$message')!
     let grid: any;
 
     onMounted(() => {
@@ -34,21 +35,26 @@ export default defineComponent({
       //监听到dragstop
       grid.on("dragstop", (event: any, element: any) => {
         const node = element.gridstackNode;
-        $message.success(`成功移动至${node.y + 1}行${node.x + 1}列`)
+        $message.success(`成功移动至${node.y/2 + 1}行${node.x + 1}列`)
       });
 
       loadHomeJson()
     });
 
     function loadHomeJson() {
-      home.homeIcon.forEach(v => {
+      useGridsStore().getSelectedGrids.icon.forEach(v => {
         addNewWidget(v.src, v.name)
       })
     }
 
     function addNewWidget(src: string, name: string) {
       const el = `
-        <div class="grid-stack-item"><div class="grid-stack-item-content flex flex-direction justify-around align-center"><img src="${src}" style="width: 5vw; height: 5vw; border-radius: 20px;" class="shadow-md"/><p class="cl-ant-p sg-omit-sm text-white-sm">${name}</p></div></div>
+        <div class="grid-stack-item">
+          <div class="grid-stack-item-content flex flex-direction justify-around align-center">
+            <img src="${src}" style="width: 5vw; height: 5vw; border-radius: 20px;" class="shadow-md" />
+            <p class="cl-ant-p sg-omit-sm text-white-sm">${name}</p>
+          </div>
+        </div>
       `
       grid.addWidget(el, { w: 1, h: 2 });
     }
@@ -69,7 +75,9 @@ header {
 main {
   width: 90%;
   height: 70vh;
-  background-color: rgba(255, 228, 196, 0.294);
+  //background-color: rgba(255, 228, 196, 0.294);
+
+
   section {
     width: 100%;
     max-height: 100%;
