@@ -2,7 +2,7 @@
   <div class="top-search flex justify-between align-center">
     <a-popover placement="bottomLeft" trigger="click" overlayClassName="poppop" v-model:visible="visible">
       <template #content>
-        <main class="card-list flex flex-wrap justify-center align-center">
+        <main class="card-list flex flex-wrap justify-center align-center beautiful-scroll">
           <div v-for="(item, index) in allSearchEngines" :key="index" class="card flex justify-start align-center shadow"
             @click="chooseSearch(item)">
             <SvgIcon :name="item.slinkLogo" style="font-size: 34px; margin-left: 20px;"></SvgIcon>

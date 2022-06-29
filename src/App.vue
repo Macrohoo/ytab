@@ -32,6 +32,11 @@ export default defineComponent({
       }
     }
   },
+  provide() {
+    return {
+      '$message': this.$message
+    }
+  },
 
   setup() {
     const wallpaperStore = useWallpaperStore();

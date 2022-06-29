@@ -222,3 +222,38 @@
 }
 
 
+
+
+
+
+
+/* --------大型美化滚动条--------> */
+.beautiful-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+.beautiful-scroll::-webkit-scrollbar-thumb {
+  background: rgb(233, 232, 232);
+  border-radius: 20px;
+}
+.beautiful-scroll::-webkit-scrollbar-thumb:hover {
+  background: #747474;
+}
+.beautiful-scroll::-webkit-scrollbar-corner {
+  background: #f6f6f6;
+}
+
+/* --------小型美化滚动条-----------> */
+.beautiful-sm-scroll::-webkit-scrollbar {
+  width: 3px;
+}
+.beautiful-sm-scroll::-webkit-scrollbar-thumb {
+  background: rgb(233, 232, 232);
+  border-radius: 20px;
+}
+.beautiful-sm-scroll::-webkit-scrollbar-thumb:hover {
+  background: #747474;
+}
+.beautiful-sm-scroll::-webkit-scrollbar-corner {
+  background: #f6f6f6;
+}
+

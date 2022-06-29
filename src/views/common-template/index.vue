@@ -2,22 +2,60 @@
   <div class="ya-matter flex flex-direction align-center">
     <header class="flex justify-center align-center">
       <SearchEngine class="se" />
+      <button type="button" @click="addNewWidget('https://files.codelife.cc/website/12306.svg', '12306')">Add Widget</button>
     </header>
     <main>
-
+      <section class="grid-stack beautiful-sm-scroll"></section>
     </main>
   </div>
 </template>
 
 <script lang="ts">
 import SearchEngine from '@/components/SearchEngine.vue'
+import { GridStack } from 'gridstack';
+import home from '@/json/home.json'
 
 export default defineComponent({
   components: {
     SearchEngine
   },
   setup() {
-    return {};
+    const $message: {success: Function} = inject('$message')!
+    let grid: any;
+
+    onMounted(() => {
+      grid = GridStack.init({
+        float: false,
+        cellHeight: "8vh",
+        minRow: 1,
+      });
+      grid.enableResize(false);
+
+      //监听到dragstop
+      grid.on("dragstop", (event: any, element: any) => {
+        const node = element.gridstackNode;
+        $message.success(`成功移动至${node.y + 1}行${node.x + 1}列`)
+      });
+
+      loadHomeJson()
+    });
+
+    function loadHomeJson() {
+      home.homeIcon.forEach(v => {
+        addNewWidget(v.src, v.name)
+      })
+    }
+
+    function addNewWidget(src: string, name: string) {
+      const el = `
+        <div class="grid-stack-item"><div class="grid-stack-item-content flex flex-direction justify-around align-center"><img src="${src}" style="width: 5vw; height: 5vw; border-radius: 20px;" class="shadow-md"/><p class="cl-ant-p sg-omit-sm text-white-sm">${name}</p></div></div>
+      `
+      grid.addWidget(el, { w: 1, h: 2 });
+    }
+
+    return {
+      addNewWidget,
+    };
   }
 });
 </script>
@@ -32,5 +70,10 @@ main {
   width: 90%;
   height: 70vh;
   background-color: rgba(255, 228, 196, 0.294);
+  section {
+    width: 100%;
+    max-height: 100%;
+    overflow-y: scroll;
+  }
 }
 </style>

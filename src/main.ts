@@ -33,6 +33,10 @@ import router from './router'
 
 import './initAsyncRoutes'
 
+//gridstack
+import 'gridstack/dist/gridstack.min.css';
+import 'gridstack/dist/h5/gridstack-dd-native';  // THEN to get HTML5 drag&drop
+
 //analyze pic theme  这个工具暂时不用，太吃性能了
 // import analyze from 'rgbaster'
 // const result = await analyze('https://kodo.mboke.top/ytab/iyk7.mp4', { scale: 0.6 })
