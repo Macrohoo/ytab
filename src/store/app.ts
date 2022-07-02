@@ -1,7 +1,9 @@
 import { defineStore } from 'pinia'
 import { constantRoutes } from '@/router'
-import { RouterTy, RouterRowTy } from '~/router'
+import { RouterRowTy } from '~/router'
 import router from '@/router'
+
+type LsRouteTy = Pick<RouterRowTy, 'name' | 'meta' | 'path'>
 
 
 export const useAppStore = defineStore('app', {
@@ -14,7 +16,19 @@ export const useAppStore = defineStore('app', {
   },
   getters: {
     getAsyncRoutes: () => JSON.parse(localStorage.getItem('ASYNC_ROUTES')!),
-    getIsInitAsyncRoutes: (state) => state.isInitAsyncRoutes
+    getIsInitAsyncRoutes: (state) => state.isInitAsyncRoutes,
+    getRouteIsExisted: () :Function => {
+      return (routeName: string) :boolean => {
+        let asyncRoutes = JSON.parse(localStorage.getItem('ASYNC_ROUTES')!)
+        if(!asyncRoutes) return false
+        const result = asyncRoutes.findIndex((v: LsRouteTy) => v.name === routeName)
+        if(result > -1) {
+          return true
+        } else {
+          return false
+        }
+      }
+    }
   },
   actions: {
     ADD_ASYNC_ROUTES(routeObj: RouterRowTy) {

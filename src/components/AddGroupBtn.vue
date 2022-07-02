@@ -73,6 +73,11 @@ export default defineComponent({
         return;
       }
 
+      if(useAppStore().getRouteIsExisted) {
+        this.$message.error('此类型模块已存在!')
+        return
+      }
+
       const localStorageExistedAsyncRoutes = JSON.parse(localStorage.getItem('ASYNC_ROUTES')!);
       const routeObj = {
         path: this.selectedIcon.toLowerCase(),

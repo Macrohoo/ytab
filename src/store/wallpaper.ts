@@ -1,10 +1,10 @@
 import { defineStore } from 'pinia'
-import { swallpaperTy } from '~/wallpaper'
+import { SwallPaperTy } from '~/wallpaper'
 
 export const useWallpaperStore = defineStore('wallpaper', {
   state: () => {
     return {
-      currentWallpaper: {} as swallpaperTy
+      currentWallpaper: {} as SwallPaperTy
     }
   },
   getters: {
@@ -13,7 +13,7 @@ export const useWallpaperStore = defineStore('wallpaper', {
     getCurrentWallpaperThemeColor: (state) => state.currentWallpaper.themeColor
   },
   actions: {
-    SET_CURRENTWALLPAPER(swallpaperObj: swallpaperTy) :void{
+    SET_CURRENTWALLPAPER(swallpaperObj: SwallPaperTy) :void{
       this.$patch((state) => {
         state.currentWallpaper = swallpaperObj
         localStorage.setItem('CURRENTWALLPAPER', JSON.stringify(swallpaperObj))

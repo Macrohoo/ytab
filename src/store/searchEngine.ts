@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { searchEngineTy } from '~/searchEngine'
+import { SearchEngineTy } from '~/searchEngine'
 
 export const useSearchEngineStore = defineStore('searchEngine', {
   state: () => {
@@ -12,7 +12,7 @@ export const useSearchEngineStore = defineStore('searchEngine', {
     getCurrentSearchEngine: state => state.currentSearchEngine
   },
   actions: {
-    SET_CURRENTSEARCH_ENGINE(searchEngineObj: searchEngineTy) :void {
+    SET_CURRENTSEARCH_ENGINE(searchEngineObj: SearchEngineTy) :void {
       this.$patch((state) => {
         state.currentSearchEngine = searchEngineObj
         localStorage.setItem('CURRENTSEARCH-ENGINE', JSON.stringify(searchEngineObj))

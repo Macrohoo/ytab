@@ -19,7 +19,6 @@ function initAsnycRoutes() {
 }
 
 router.beforeEach((to: RouteLocationNormalized, from, next) => {
-  console.log(to, '????????????????')
   if (useAppStore().getIsInitAsyncRoutes) {
     useGridsStore().SYNC_SELECTED_GRIDS(to.meta.title as string)
     next()

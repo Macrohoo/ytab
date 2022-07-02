@@ -1,4 +1,4 @@
-export type swallpaperTy = {
+export type SwallPaperTy = {
   name: string,
   url: string,
   themeColor: string,

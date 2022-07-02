@@ -31,7 +31,7 @@
 
 <script lang="ts">
 import { useSearchEngineStore } from '@/store/searchEngine'
-import { searchEngineTy } from '~/searchEngine'
+import { SearchEngineTy } from '~/searchEngine'
 
 export default defineComponent({
   data() {
@@ -41,7 +41,7 @@ export default defineComponent({
     }
   },
   methods: {
-    chooseSearch(item: searchEngineTy) {
+    chooseSearch(item: SearchEngineTy) {
       useSearchEngineStore().SET_CURRENTSEARCH_ENGINE(item)
       this.visible = false
     },
