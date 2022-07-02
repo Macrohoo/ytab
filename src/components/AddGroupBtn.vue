@@ -32,7 +32,7 @@ export default defineComponent({
     return {
       visible: false,
       groupName: '',
-      selectedIcon: '',
+      selectedIcon: 'HeartOutlined',
       groupIcons: [
         {
           name: 'HeartOutlined'
@@ -73,7 +73,7 @@ export default defineComponent({
         return;
       }
 
-      if(useAppStore().getRouteIsExisted) {
+      if(useAppStore().getRouteIsExisted(this.selectedIcon.toLowerCase())) {
         this.$message.error('此类型模块已存在!')
         return
       }
