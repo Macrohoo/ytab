@@ -5,9 +5,24 @@
       <button type="button" @click="addNewWidget('https://files.codelife.cc/website/12306.svg', '12306')">Add
         Widget</button>
     </header>
-    <main>
-      <section class="grid-stack beautiful-sm-scroll"></section>
-    </main>
+    <a-dropdown :trigger="['contextmenu']">
+      <main>
+        <section class="grid-stack beautiful-sm-scroll"></section>
+      </main>
+      <template #overlay>
+        <a-menu>
+          <a-menu-item key="1">
+            <AntdIcon :name="'SwapOutlined'" :style="'font-size: 14px'" />
+            切换壁纸
+          </a-menu-item>
+          <a-menu-item key="2">
+            <AntdIcon :name="'PlusOutlined'" :style="'font-size: 14px'" />
+            添加图标或组件
+          </a-menu-item>
+          <a-menu-item key="3">3rd menu item</a-menu-item>
+        </a-menu>
+      </template>
+    </a-dropdown>
   </div>
 </template>
 
@@ -35,7 +50,7 @@ export default defineComponent({
       //监听到dragstop
       grid.on("dragstop", (event: any, element: any) => {
         const node = element.gridstackNode;
-        $message.success(`成功移动至${node.y/2 + 1}行${node.x + 1}列`)
+        $message.success(`成功移动至${node.y / 2 + 1}行${node.x + 1}列`)
       });
 
       loadHomeJson()

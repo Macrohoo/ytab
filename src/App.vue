@@ -7,6 +7,11 @@ import DataBeforeGuard from '@/dataBeforeGuard';
 import { useWallpaperStore } from '@/store/wallpaper';
 
 export default defineComponent({
+  data() {
+    return {
+      sk: 'haha'
+    }
+  },
   beforeCreate() {
     DataBeforeGuard.initWp();
     DataBeforeGuard.initSearchEngine()

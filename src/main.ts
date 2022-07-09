@@ -42,5 +42,7 @@ import 'gridstack/dist/h5/gridstack-dd-native';  // THEN to get HTML5 drag&drop
 // const result = await analyze('https://kodo.mboke.top/ytab/iyk7.mp4', { scale: 0.6 })
 // console.log(result)
 
-app.use(router).mount('#app');
+const vm = app.use(router).mount('#app');
+
+console.log(app, 'hahahahahh', vm)
 
